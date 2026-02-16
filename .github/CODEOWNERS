@@ -1,0 +1,8 @@
+# Replace with your GitHub handle/org before publishing.
+* @your-github-handle
+
+# Agent operating docs
+/AGENTS/ @your-github-handle
+
+# Model source
+/*.scad @your-github-handle

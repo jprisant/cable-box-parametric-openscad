@@ -1,0 +1,36 @@
+# Private scratch and temporary notes
+_NOTES/
+_jp-notes/
+
+# Agent runtime artifacts (keep stable agent docs tracked)
+AGENTS/**/SESSION-LOG/*.md
+AGENTS/**/PLANNING/*.md
+AGENTS/**/TRANSCRIPTS/*.md
+AGENTS/**/WORKING/
+!AGENTS/**/SESSION-LOG/.gitkeep
+!AGENTS/**/PLANNING/.gitkeep
+!AGENTS/**/TRANSCRIPTS/.gitkeep
+
+# CAD outputs
+*.stl
+*.3mf
+*.obj
+*.amf
+*.step
+*.iges
+exports/
+renders/
+site/
+ci-smoke-out/
+
+# Keep curated release artifacts versionable in-library/examples.
+!library/**/*.stl
+!examples/**/*.stl
+
+# Tool/editor/system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
