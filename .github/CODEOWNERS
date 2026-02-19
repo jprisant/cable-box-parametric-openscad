@@ -1,8 +1,8 @@
 # Replace with your GitHub handle/org before publishing.
-* @your-github-handle
+* @jprisant
 
 # Agent operating docs
-/AGENTS/ @your-github-handle
+/AGENTS/ @jprisant
 
 # Model source
-/*.scad @your-github-handle
+/*.scad @jprisant
