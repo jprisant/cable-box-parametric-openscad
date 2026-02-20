@@ -13,7 +13,7 @@ Parametric OpenSCAD model for printable cable-management boxes with configurable
 - Optional center post (open or closed post base behavior).
 - Stabilizer fins with alignment and opening-avoid logic.
 - Bottom opening arrays with axis/orientation/alignment controls.
-- Optional slicing workflow for smaller print beds with mating clips.
+- ~~Optional slicing workflow for smaller print beds with mating clips.~~
 - OpenSCAD smoke CI workflow (`.github/workflows/scad-smoke.yml`).
 
 ## Quick Start
@@ -25,6 +25,12 @@ Parametric OpenSCAD model for printable cable-management boxes with configurable
 5. Export STL.
 
 Numeric values are intended to be edited through typed input fields and step arrows in Customizer.
+
+## Screenshot of All the Options!
+
+![screenshot](docs/images/2026-02-19-v2_full-screenshot-angled.png)
+
+---
 
 ## Documentation Map
 
@@ -74,23 +80,6 @@ For behavior changes, update source comments and related docs in the same PR.
 - Optional override for Bash runner: set `OPENSCAD_BIN` if `openscad` is not in PATH.
 
 Smoke scenarios cover baseline rendering, lid rendering, slicing rendering, and one expected-fail assertion case.
-
-## Docs Site (Optional)
-
-Build locally:
-
-```bash
-pip install mkdocs mkdocs-material
-mkdocs serve
-```
-
-Build static output:
-
-```bash
-mkdocs build --strict
-```
-
-GitHub Pages deployment is configured in `.github/workflows/docs-pages.yml`.
 
 ## Licensing
 

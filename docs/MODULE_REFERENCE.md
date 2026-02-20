@@ -54,14 +54,16 @@ Used by:
 - non-sliced render path
 - `m_lid_slice()`
 
-### `m_opening(side, width, height)`
+### `m_opening(side, width, height, corner_radius)`
 
-Generates a rounded slot-style opening profile and extrudes through wall thickness.
+Generates a side opening profile and extrudes through wall thickness.
 
 Behavior:
 
 - Orientation depends on `side`
-- Rounded shape via `hull()` of cylinders
+- `corner_radius < 0` uses legacy full-round slot ends
+- `corner_radius = 0` produces a square-corner opening
+- `corner_radius > 0` produces a rounded rectangle (clamped to valid half-extents)
 - Works with vertical, horizontal, and square dimensions
 
 ## Stabilizers
@@ -77,11 +79,20 @@ Places stabilizers on front/back walls.
 Key logic:
 
 - Alignment modes: `Centered`, `Distributed`, `Custom`
+- `Centered`/`Custom` pitch is controlled by `Stabilizer_FB_Spacing`
 - Optional opening avoid zones per wall
+- Avoid fallback: if all candidate positions are suppressed and distributed positions exist, it falls back to distributed
 
 ### `m_stabilizers_left_right()`
 
 Places stabilizers on left/right walls with matching alignment/avoid behavior.
+
+Key logic:
+
+- Alignment modes: `Centered`, `Distributed`, `Custom`
+- `Centered`/`Custom` pitch is controlled by `Stabilizer_LR_Spacing`
+- Optional opening avoid zones per wall
+- Avoid fallback: if all candidate positions are suppressed and distributed positions exist, it falls back to distributed
 
 ### `m_stabilizers()`
 

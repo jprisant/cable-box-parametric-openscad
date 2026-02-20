@@ -84,6 +84,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|---|
 | `All_Opening_Width` | number | `10` | Default opening width on enabled side walls. | Used unless side-specific width override is greater than `0`. |
 | `All_Opening_Height` | number | `30` | Default opening height on enabled side walls. | Must be `> 0` (width may be larger or smaller). |
+| `All_Opening_Corner_Radius` | number | `-1` | Default corner radius for side openings. | `-1` keeps legacy full-round ends; `0` is square; positive values are clamped to valid half-extents. |
 | `All_Openings_Right` | number | `0` | Legacy global side-opening shift used by multiple wall transforms. | Affects different axes depending on wall orientation; combine carefully with side-local moves. |
 | `All_Openings_Up` | number | `0` | Global vertical offset added to side openings. | Combines with side-specific vertical offsets. |
 | `Opening_On_Right` | boolean | `true` | Enables right wall opening. | Uses global size unless right override is set. |
@@ -97,6 +98,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|
 | `Override_Opening_Width_Left` | number | `0` | Left opening width override; `0` keeps global width. |
 | `Override_Opening_Height_Left` | number | `0` | Left opening height override; `0` keeps global height. |
+| `Override_Opening_Corner_Radius_Left` | number | `-1` | Left opening corner radius override; `-1` keeps global corner radius. |
 | `Move_Opening_Left_to_Right` | number | `0` | Left wall opening depth shift; positive moves toward front (`-Y`). |
 | `Move_Opening_Left_Up` | number | `0` | Left opening vertical offset. |
 
@@ -106,6 +108,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|
 | `Override_Opening_Width_Right` | number | `0` | Right opening width override; `0` keeps global width. |
 | `Override_Opening_Height_Right` | number | `0` | Right opening height override; `0` keeps global height. |
+| `Override_Opening_Corner_Radius_Right` | number | `-1` | Right opening corner radius override; `-1` keeps global corner radius. |
 | `Move_Opening_Right_to_Right` | number | `0` | Right wall opening depth shift; positive moves toward back (`+Y`). |
 | `Move_Opening_Right_Up` | number | `0` | Right opening vertical offset. |
 
@@ -115,6 +118,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|
 | `Override_Opening_Width_Back` | number | `0` | Back opening width override; `0` keeps global width. |
 | `Override_Opening_Height_Back` | number | `0` | Back opening height override; `0` keeps global height. |
+| `Override_Opening_Corner_Radius_Back` | number | `-1` | Back opening corner radius override; `-1` keeps global corner radius. |
 | `Move_Opening_Back_to_Right` | number | `0` | Back wall opening lateral shift; positive moves toward left (`-X`). |
 | `Move_Opening_Back_Up` | number | `0` | Back opening vertical offset. |
 
@@ -124,6 +128,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|
 | `Override_Opening_Width_Front` | number | `0` | Front opening width override; `0` keeps global width. |
 | `Override_Opening_Height_Front` | number | `0` | Front opening height override; `0` keeps global height. |
+| `Override_Opening_Corner_Radius_Front` | number | `-1` | Front opening corner radius override; `-1` keeps global corner radius. |
 | `Move_Opening_Front_to_Right` | number | `0` | Front wall opening lateral shift; positive moves toward right (`+X`). |
 | `Move_Opening_Front_Up` | number | `0` | Front opening vertical offset. |
 
@@ -142,6 +147,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|---|
 | `Stabilizers_Front_Back_Count` | integer | `3` | `0+` | Number of fins on each of front and back walls. |
 | `Stabilizers_Front_Back_Alignment` | enum | `"Centered"` | `"Centered"`, `"Distributed"`, `"Custom"` | Placement strategy for front/back fins. |
+| `Stabilizer_FB_Spacing` | number | `3` | `>= 0` | Gap between adjacent front/back fins in `Centered` and `Custom` modes. |
 | `Stabilizer_FB_Margin_Left` | number | `15` | any | Left margin used in `Distributed` and `Custom`. |
 | `Stabilizer_FB_Margin_Right` | number | `15` | any | Right margin used in `Distributed` and `Custom`. |
 | `Stabilizer_Avoid_Front_Opening` | boolean | `true` | true/false | Skips front-wall fin positions that overlap opening area. |
@@ -151,9 +157,9 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 
 | Option | Behavior |
 |---|---|
-| `"Centered"` | Builds a centered fin cluster using width-based spacing. |
+| `"Centered"` | Builds a centered fin cluster using `Stabilizer_FB_Spacing`. |
 | `"Distributed"` | Distributes fins between left/right margins. |
-| `"Custom"` | Starts from the custom start margin and uses fixed pitch (`3 * Stabilizer_Width`) when it fits; otherwise falls back to distributed placement inside margins. |
+| `"Custom"` | Starts from the custom start margin and uses fixed pitch (`Stabilizer_Width + Stabilizer_FB_Spacing`) when it fits; otherwise falls back to distributed placement inside margins. |
 
 ## 12) Stabilizers - Left/Right Walls
 
@@ -161,6 +167,7 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 |---|---|---:|---|---|
 | `Stabilizers_Left_Right_Count` | integer | `0` | `0+` | Number of fins on each of left and right walls. |
 | `Stabilizers_Left_Right_Alignment` | enum | `"Centered"` | `"Centered"`, `"Distributed"`, `"Custom"` | Placement strategy for left/right fins. |
+| `Stabilizer_LR_Spacing` | number | `3` | `>= 0` | Gap between adjacent left/right fins in `Centered` and `Custom` modes. |
 | `Stabilizer_LR_Margin_Front` | number | `15` | any | Front margin used in `Distributed` and `Custom`. |
 | `Stabilizer_LR_Margin_Back` | number | `15` | any | Back margin used in `Distributed` and `Custom`. |
 | `Stabilizer_Avoid_Left_Opening` | boolean | `true` | true/false | Skips left-wall fin positions that overlap opening area. |
@@ -170,9 +177,9 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 
 | Option | Behavior |
 |---|---|
-| `"Centered"` | Builds a centered fin cluster using width-based spacing. |
+| `"Centered"` | Builds a centered fin cluster using `Stabilizer_LR_Spacing`. |
 | `"Distributed"` | Distributes fins between front/back margins. |
-| `"Custom"` | Starts from the custom start margin and uses fixed pitch (`3 * Stabilizer_Width`) when it fits; otherwise falls back to distributed placement inside margins. |
+| `"Custom"` | Starts from the custom start margin and uses fixed pitch (`Stabilizer_Width + Stabilizer_LR_Spacing`) when it fits; otherwise falls back to distributed placement inside margins. |
 
 ## 13) Bottom Openings - Main
 
@@ -270,7 +277,9 @@ If this document and the SCAD file ever disagree, treat the SCAD file as the fun
 The model enforces these assertions:
 
 - Side opening width/height overrides must be `>= 0`.
-- `All_Opening_Height` must be greater than `All_Opening_Width`.
+- Opening corner radius defaults/overrides must be `>= -1`.
+- `All_Opening_Height` and `All_Opening_Width` must both be `> 0`.
+- `Stabilizer_FB_Spacing` and `Stabilizer_LR_Spacing` must be `>= 0`.
 - `Slice_Piece_To_Render` must be an integer in range `0..Slice_Count`.
 - When slicing is enabled, `Slice_Count` must be `>= 2`.
 - When slicing is enabled, `Clips_Per_Edge` must be `>= 1`.

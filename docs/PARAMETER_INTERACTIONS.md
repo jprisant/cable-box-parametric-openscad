@@ -6,12 +6,18 @@ This page captures interactions that most affect model behavior and print outcom
 
 ## Global vs per-side dimensions
 
-- Global: `All_Opening_Width`, `All_Opening_Height`
-- Per-side overrides apply only when override value is greater than `0`.
+- Global: `All_Opening_Width`, `All_Opening_Height`, `All_Opening_Corner_Radius`
+- Per-side width/height overrides apply when override value is greater than `0`.
+- Per-side corner-radius overrides apply when override value is `>= 0`.
 
 Practical effect:
 
 - Override set to `0` means "inherit global".
+
+Corner-radius behavior:
+
+- `All_Opening_Corner_Radius = -1` keeps legacy full-round slot ends.
+- Side override radius `>= 0` takes precedence (`0` square, `>0` rounded rectangle).
 
 ## Global and local offsets combine
 
@@ -39,7 +45,8 @@ Tuning order:
 1. Set opening sizes/positions
 2. Set stabilizer count/alignment
 3. Use avoid toggles
-4. Adjust margins
+4. Adjust spacing (`Stabilizer_FB_Spacing`, `Stabilizer_LR_Spacing`) for `Centered`/`Custom`
+5. Adjust margins
 
 ## Bottom Openings and Center Post
 
