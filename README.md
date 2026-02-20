@@ -1,4 +1,4 @@
-# Parametric Cable Management Box (OpenSCAD)
+# The Ultimate Parametric Cable Management Box (OpenSCAD)
 
 Parametric OpenSCAD model for printable cable-management boxes with configurable side openings, optional center post, optional interior stabilizers, bottom opening layouts, and print-bed slicing with clip joints.
 
@@ -13,7 +13,7 @@ Parametric OpenSCAD model for printable cable-management boxes with configurable
 - Optional center post (open or closed post base behavior).
 - Stabilizer fins with alignment and opening-avoid logic.
 - Bottom opening arrays with axis/orientation/alignment controls.
-- ~~Optional slicing workflow for smaller print beds with mating clips.~~
+- Optional slicing workflow for smaller print beds with mating clips.
 - OpenSCAD smoke CI workflow (`.github/workflows/scad-smoke.yml`).
 
 ## Quick Start
